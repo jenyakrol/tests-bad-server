@@ -160,8 +160,9 @@ test.describe('Проверка загрузки файлов', () => {
 
     console.log(tempDir)
 
-    try {
-    const items = fs.readdirSync(workspace);
+    function showDirectoryStructure(dirPath, indent = '') {
+  try {
+    const items = fs.readdirSync(dirPath);
     
     items.forEach((item, index) => {
       const fullPath = path.join(dirPath, item);
@@ -178,7 +179,8 @@ test.describe('Проверка загрузки файлов', () => {
   } catch (err) {
     console.error(`Ошибка при чтении ${dirPath}:`, err.message);
   }
-
+}
+    showDirectoryStructure(workspace);
     expect(fs.existsSync(tempDir)).toBeTruthy();
   });
 
