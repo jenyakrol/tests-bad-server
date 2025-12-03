@@ -158,7 +158,26 @@ test.describe('Проверка загрузки файлов', () => {
       process.env.UPLOAD_PATH_TEMP || 'temp',
     );
 
-    console.log(tempDir)    
+    console.log(tempDir)
+
+    try {
+    const items = fs.readdirSync(workspace);
+    
+    items.forEach((item, index) => {
+      const fullPath = path.join(dirPath, item);
+      const isLast = index === items.length - 1;
+      const prefix = indent + (isLast ? '└── ' : '├── ');
+      
+      console.log(prefix + item);
+      
+      if (fs.statSync(fullPath).isDirectory()) {
+        const newIndent = indent + (isLast ? '    ' : '│   ');
+        showDirectoryStructure(fullPath, newIndent);
+      }
+    });
+  } catch (err) {
+    console.error(`Ошибка при чтении ${dirPath}:`, err.message);
+  }
 
     expect(fs.existsSync(tempDir)).toBeTruthy();
   });
