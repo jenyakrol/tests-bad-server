@@ -158,6 +158,8 @@ test.describe('Проверка загрузки файлов', () => {
       process.env.UPLOAD_PATH_TEMP || 'temp',
     );
 
+    console.log(tempDir)    
+
     expect(fs.existsSync(tempDir)).toBeTruthy();
   });
 
